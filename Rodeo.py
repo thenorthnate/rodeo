@@ -1,11 +1,9 @@
-# @Author: Nathan North
-# @Org: GE Transportation
-# @Project: Series X
-# Copywrite - all rights reserved. DO NOT COPY OR DISTRIBUTE.
+# Nathan North
+# Rodeo Data Mining
+# https://plot.ly/javascript/
 
 from flask import Flask, render_template, redirect, url_for, request, Response, session
 import os
-import datetime
 
 from app.main.Main import Main
 from app.data_manager.DataManager import DataManager
@@ -32,11 +30,16 @@ def home():
     return render_template('home.html', x=x, y=y)
 
 
-@app.route('/data_manager', methods=['GET', 'POST'])
-def data_manager():
+@app.route('/import_data', methods=['GET', 'POST'])
+def import_data():
     if request.method == 'POST':
         dM.import_new_file(request.files)
-    return render_template('data_manager.html', showData=dM.showData)
+    return render_template('import.html', showData=dM.showData)
+
+
+@app.route('/plot', methods=['GET', 'POST'])
+def plot():
+    return render_template('plot.html')
 
 
 if __name__ == '__main__':

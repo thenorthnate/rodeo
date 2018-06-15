@@ -1,0 +1,48 @@
+{% extends "index.html" %}
+{% block body %}
+
+<div class="border-bottom">
+  <h1>Plot</h1>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Plotting Tools</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+    <p class="card-text">Use these tools to determine what gets displayed on the plot above.</p>
+    <br>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        X Axis:
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Date</a>
+        <a class="dropdown-item" href="#">ID</a>
+        <a class="dropdown-item" href="#">Shop</a>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Y Axis:
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Date</a>
+        <a class="dropdown-item" href="#">ID</a>
+        <a class="dropdown-item" href="#">Shop</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="plotlyPlot"></div>
+
+<!-- script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script -->
+<script src="{{ url_for('static', filename='plotly-latest.min.js') }}"></script>
+<script src="{{ url_for('static', filename='rodeo-plotting.js') }}"></script>
+<!-- script type="text/JavaScript">
+  makePlot({{x}}, {{y}})
+</script -->
+
+{% endblock %}

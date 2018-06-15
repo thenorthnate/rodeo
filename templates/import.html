@@ -1,0 +1,80 @@
+{% extends "index.html" %}
+{% block body %}
+
+<div class="border-bottom">
+  <h1>Import</h1>
+</div>
+
+<br>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Add Data</h5>
+
+    <p class="card-text">Browse to the file you'd like to import, then select import.</p>
+    <form action="{{ url_for("import_data") }}" method="post" enctype="multipart/form-data">
+      <label class="btn btn-warning btn-file">
+        Browse <input type="file" style="display: none;"  name="datafile" id="configfile">
+      </label><br>
+
+      <button class="btn btn-primary" type="submit" name="importButton" value="data">Import</button>
+    </form>
+
+    <br>
+    <br>
+
+    <h5 class="card-title">File Excerpt</h5>
+    <div class="table-responsive">
+      <table class="table table-striped table-sm" id="fileExcerptTable"></table>
+    </div>
+
+  </div>
+</div>
+
+<br>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Create Data Feature</h5>
+
+    <p class="card-text">Add features to the dataset through built-in functions.</p>
+    Strip text
+    Strip text and convert to int
+    Difference between two dates
+    Get the month/day/year/seconds/minutes between dates
+    Multiply/divide/add/subtract from values
+    <br>
+    <button class="btn btn-success" type="button" name="createButton" value="create">Create</button>
+
+  </div>
+</div>
+<br>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Filter Data</h5>
+
+    <p class="card-text">
+      Filter the data destructively. This action permanently deletes data from
+      memory. This action will not affect the data file. It just means that you will
+      have to reload the data if you want data components that were removed.
+    </p>
+    Remove columns
+    Remove rows
+    Filter by date
+    filter by value
+    filter by "contains"
+
+    Must support more than one filter on the same dataset 1 < data < 6
+    <br>
+    <button class="btn btn-success" type="button" name="filterButton" value="filt">Filter</button>
+
+  </div>
+</div>
+
+
+
+
+<script src="{{ url_for('static', filename='rodeo-data-manager.js') }}"></script>
+<script type="text/JavaScript">
+  makeTable({{ showData | safe }})
+</script>
+{% endblock %}
