@@ -34,12 +34,15 @@ def home():
 def import_data():
     if request.method == 'POST':
         dM.import_new_file(request.files)
-    return render_template('import.html', showData=dM.showData)
+    return render_template('import.html')
 
 
 @app.route('/plot', methods=['GET', 'POST'])
 def plot():
-    return render_template('plot.html')
+    dM.test_plot()
+    data = dM.tmpData
+    print(data)
+    return render_template('plot.html', data=data)
 
 
 if __name__ == '__main__':

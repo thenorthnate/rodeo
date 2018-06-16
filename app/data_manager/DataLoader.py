@@ -29,7 +29,7 @@ class DataLoader:
 
     def generate_filename(self):
         curTime = int(time.time()*1000)
-        fileStarter = "rodeoin_"
+        fileStarter = "raw_"
         self.filename = fileStarter + str(curTime) + ".csv"
 
     def process_file_upload(self, requestFiles):
@@ -110,16 +110,14 @@ class DataLoader:
                 i += 1
         return data
 
-    def create_data_to_show(self, data):
-        showData = {}
-        for item in data:
-            showData[item] = []
-            for i in range(10):
-                showData[item].append(str(data[item][i]))
-        return showData
+    def make_datattributes(self):
+        i = 0
+        for item in self.tmpHeader:
+            self.datattributes[item] = self.tmpDatatypes[i]
+            i += 1
 
     def load(self, requestFiles):
         self.process_file_upload(requestFiles)
         loadedData = self.load_file()
-        showData = self.create_data_to_show(loadedData)
-        return [loadedData, showData]
+        self.make_datattributes()
+        return loadedData

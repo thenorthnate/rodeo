@@ -41,8 +41,8 @@
 <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script -->
 <script src="{{ url_for('static', filename='plotly-latest.min.js') }}"></script>
 <script src="{{ url_for('static', filename='rodeo-plotting.js') }}"></script>
-<!-- script type="text/JavaScript">
-  makePlot({{x}}, {{y}})
-</script -->
+<script type="text/JavaScript">
+  makePlot({{ data | safe }})
+</script>
 
 {% endblock %}

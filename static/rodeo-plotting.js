@@ -1,4 +1,4 @@
-function makePlot(x, y) {
+function makePlot1(x, y) {
   var ctx = document.getElementById("myChart");
   console.log(x);
   console.log(y);
@@ -47,24 +47,16 @@ function addElement () {
 }
 */
 
-var y0 = [];
-var y1 = [];
+function makePlot(data) {
+  var x0 = data["0"];
+  var y0 = data["1"];
 
-for (var i = 0; i < 50; i ++) {
-	y0[i] = Math.random();
-	y1[i] = Math.random() + 1;
+  var trace1 = {
+    x: x0,
+    y: y0,
+    mode: 'markers',
+    type: 'scatter'
+  };
+  var data = [trace1];
+  Plotly.newPlot('plotlyPlot', data);
 }
-
-var trace1 = {
-  y: y0,
-  type: 'box'
-};
-
-var trace2 = {
-  y: y1,
-  type: 'box'
-};
-
-var data = [trace1, trace2];
-
-Plotly.newPlot('plotlyPlot', data);
