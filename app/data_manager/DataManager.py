@@ -9,7 +9,7 @@ from app.data_manager.DataLoader import DataLoader
 class DataManager(Main):
     def __init__(self):
         Main.__init__(self)
-        # {"filename.csv":{"data":{"header":{"data":[data, data, data, ...]}, "properties":{"uniqueEntries":12, "type":"float"}, "fileProperties":{"features":10, "length":1234}}, ...}
+        # {"filename.csv":{"data":{"1":{"data":[data, data, data, ...]}, "properties":{"uniqueEntries":12, "type":"float", "name":"xxx"}, "fileProperties":{"features":10, "length":1234}}, ...}
         self.data = {"files": []}
         self.tmpData = {}
         self.operations = {}  # {"projectName":[{"task":1, "type":"importData", "filename":"abc.csv"}, {"task":2, "type":"newFeature", "operation":"date1 - date2", "operationName":"timeDiff"},...]}
@@ -18,9 +18,15 @@ class DataManager(Main):
         DL = DataLoader(Main.datadir)
         newData = DL.load(requestFiles)  # {"header":[data, data, ...]}
         self.data["files"].append(DL.filename)
-        self.data[DL.filename] = {"data": {}, "fileProperties": {}}
+        self.data[DL.filename] = {"features": {}, "fileProperties": {}}
+        i = 0
         for item in newData:
-            self.data[DL.filename]["data"][item] = {"data": newData[item], "properties": {"type": DL.datattributes[item]["type"]}}
+            self.data[DL.filename]["features"][str(i)] = {
+                "data": newData[item],
+                "properties": {"type": DL.datattributes[item]["type"]},
+                "name": item
+            }
+            i += 1
 
     def import_old_file(self):
         pass
@@ -41,10 +47,9 @@ class DataManager(Main):
         self.tmpData = {}
 
     def test_plot(self):
-        data = self.data[self.data["files"][0]]["data"]
+        data = self.data[self.data["files"][0]]["features"]
         i = 0
         for header in data:
-            print(data[header]["properties"]["type"])
             if data[header]["properties"]["type"] in ["float", "int"]:
                 self.tmpData[str(i)] = data[header]["data"]
                 i += 1
