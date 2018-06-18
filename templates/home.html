@@ -1,39 +1,71 @@
 {% extends "index.html" %}
 {% block body %}
-
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-  <h1 class="h2">Home</h1>
-  <div class="btn-toolbar mb-2 mb-md-0">
-    <div class="btn-group mr-2">
-      <button class="btn btn-sm btn-outline-secondary">Share</button>
-      <button class="btn btn-sm btn-outline-secondary">Export</button>
+<div class="container">
+  <div class="jumbotron mt-3">
+    <div class="row">
+      <div class="col">
+        <h1>Project Overview</h1>
+        <p class="lead">
+          View characteristics of your data here.
+        </p>
+      </div> <!-- col -->
+      <div class="col">
+        <h1>0</h1> Files Loaded
+      </div> <!-- col -->
+    </div> <!-- row -->
+    <div class="btn-group">
+      <button type="button" class="btn btn-lg btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Data Features
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Date</a>
+        <a class="dropdown-item" href="#">ID</a>
+        <a class="dropdown-item" href="#">RN</a>
+      </div>
     </div>
-    <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-      <span data-feather="calendar"></span>
-      This week
-    </button>
-  </div>
-</div>
+    <br>
+    <br>
 
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">Data Overview</h5>
+    <h5 class="card-title">Data Excerpt</h5>
+    <div class="table-responsive">
+      <table class="table table-striped table-sm" id="fileExcerptTable"></table>
+    </div>
 
-    Unique Data Features: 0
-
-  </div>
-</div>
-
-
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">New Project</h5>
-
-    Load Old Project
+    Number of files imported: 3
+    Total number of datapoints: 14000
+    Number of data features
+    Sum, Average, Min, Max of dataset selected
 
   </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Data Overview</h5>
+
+      Unique Data Features: 0
+
+    </div>
+  </div>
+
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">New Project</h5>
+
+      Load Old Project
+
+      <!-- img src="{{ url_for("static", filename="images/1st.png")}}" -->
+
+    </div>
+  </div>
+
 </div>
 
 
+<script src="{{ url_for('static', filename='javascript/rodeo-data-manager.js') }}"></script>
+<script type="text/JavaScript">
+  // makeTable({{ showData | safe }})
+  console.log("test")
+</script>
 
 {% endblock %}

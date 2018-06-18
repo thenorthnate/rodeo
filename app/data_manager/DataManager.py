@@ -47,9 +47,11 @@ class DataManager(Main):
         self.tmpData = {}
 
     def test_plot(self):
-        data = self.data[self.data["files"][0]]["features"]
-        i = 0
-        for header in data:
-            if data[header]["properties"]["type"] in ["float", "int"]:
-                self.tmpData[str(i)] = data[header]["data"]
-                i += 1
+        for fileItem in self.data:
+            if fileItem != "files":
+                data = self.data[fileItem]["features"]
+                i = 0
+                for header in data:
+                    if data[header]["properties"]["type"] in ["float", "int"]:
+                        self.tmpData[str(i)] = data[header]["data"]
+                        i += 1

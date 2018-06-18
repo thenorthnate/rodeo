@@ -10,22 +10,13 @@
     <title>Rodeo Data Tool</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{{ url_for("static", filename="bootstrap.min.css") }}" rel="stylesheet">
+    <link href="{{ url_for("static", filename="css/bootstrap.min.css") }}" rel="stylesheet">
   </head>
 
   <body>
-    <div class="container">
-      <div class="jumbotron mt-3">
-        <h1>Bottom Navbar example</h1>
-        <p class="lead">This example is a quick exercise to illustrate how the bottom navbar works.</p>
-        <a class="btn btn-lg btn-primary" href="../../components/navbar/" role="button">View navbar docs &raquo;</a>
-      </div>
-    </div>
     {% block body %}{% endblock %}
-
-
     <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">NN</a>
+      <a class="navbar-brand" href="#">Rodeo</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -37,11 +28,8 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for("plot") }}">Plot</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for("import_data") }}">Import</a>
-          </li>
           <li class="nav-item dropup">
-            <a class="nav-link dropdown-toggle" href="https://getbootstrap.com" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropup</a>
+            <a class="nav-link dropdown-toggle" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tools</a>
             <div class="dropdown-menu" aria-labelledby="dropdown10">
               <a class="dropdown-item" href="#">Action</a>
               <a class="dropdown-item" href="#">Another action</a>
@@ -50,14 +38,53 @@
           </li>
         </ul>
       </div>
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">Add Data</a>
+        </li>
+      </ul>
     </nav>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Select Data File</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form action="{{ url_for("home") }}" method="post" enctype="multipart/form-data">
+            <div class="modal-body">
+              <div class="row">
+                <div class="col">
+                  <label class="btn btn-warning btn-file">
+                    Browse <input type="file" style="display: none;"  name="datafile" id="inputFile">
+                  </label><br>
+                </div>
+                <div class="col">
+                  <ul id="selectedFiles">
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button class="btn btn-primary" type="submit" name="importButton" value="data">Upload File</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='jquery-slim.min.js') }}"><\/script>')</script>
-    <script src="{{ url_for('static', filename='popper.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+    <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='javascript/jquery-slim.min.js') }}"><\/script>')</script>
+    <script src="{{ url_for('static', filename='javascript/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/rodeo-index.js') }}"></script>
   </body>
 </html>

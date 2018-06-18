@@ -4,6 +4,8 @@ import datetime
 import os
 import time
 
+# Load entire contents of the file and fill in the blanks where data doesn't exist
+
 
 class DataLoader:
     def __init__(self, datadir):

@@ -41,7 +41,6 @@ def import_data():
 def plot():
     dM.test_plot()
     data = dM.tmpData
-    print(data)
     return render_template('plot.html', data=data)
 
 

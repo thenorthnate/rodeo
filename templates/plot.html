@@ -1,10 +1,6 @@
 {% extends "index.html" %}
 {% block body %}
 
-<div class="border-bottom">
-  <h1>Plot</h1>
-</div>
-
 <div class="card">
   <div class="card-body">
     <h5 class="card-title">Plotting Tools</h5>
@@ -39,8 +35,8 @@
 <div id="plotlyPlot"></div>
 
 <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script -->
-<script src="{{ url_for('static', filename='plotly-latest.min.js') }}"></script>
-<script src="{{ url_for('static', filename='rodeo-plotting.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/plotly-latest.min.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/rodeo-plotting.js') }}"></script>
 <script type="text/JavaScript">
   makePlot({{ data | safe }})
 </script>
