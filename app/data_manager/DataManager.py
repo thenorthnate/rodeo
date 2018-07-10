@@ -1,21 +1,25 @@
-# Import Data Class Methods
+# Manage Data Class Methods
 # Nathan North
 
 
-from app.main.Main import Main
+from app.data_manager.FileManager import FileManager
 from app.data_manager.DataLoader import DataLoader
 
 
-class DataManager(Main):
-    def __init__(self):
-        Main.__init__(self)
+class DataManager():
+    def __init__(self, datadir):
+        self.datadir = datadir
         # {"filename.csv":{"data":{"1":{"data":[data, data, data, ...]}, "properties":{"uniqueEntries":12, "type":"float", "name":"xxx"}, "fileProperties":{"features":10, "length":1234}}, ...}
         self.data = {"files": []}
         self.tmpData = {}
         self.operations = {}  # {"projectName":[{"task":1, "type":"importData", "filename":"abc.csv"}, {"task":2, "type":"newFeature", "operation":"date1 - date2", "operationName":"timeDiff"},...]}
+        self.fm = FileManager(datadir)
+
+    def upload_file(self, request):
+        fm = FileManager(self.datadir)
 
     def import_new_file(self, requestFiles):
-        DL = DataLoader(Main.datadir)
+        DL = DataLoader(self.datadir)
         newData = DL.load(requestFiles)  # {"header":[data, data, ...]}
         self.data["files"].append(DL.filename)
         self.data[DL.filename] = {"features": {}, "fileProperties": {}}

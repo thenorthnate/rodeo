@@ -2,16 +2,14 @@
 # Rodeo Data Mining
 # https://plot.ly/javascript/
 
-from flask import Flask, render_template, redirect, url_for, request, Response, session
+# from flask import Flask, render_template, redirect, url_for, request, Response, session
+import flask
 import os
-
 from app.main.Main import Main
-from app.data_manager.DataManager import DataManager
 
 appMain = Main()
-dM = DataManager()
 
-app = Flask(__name__)
+app = flask.Flask(__name__)
 app.config.from_object(__name__)
 app.config['SECRET_KEY'] = 'Rodeo'
 app.config['UPLOAD_FOLDER'] = appMain.datadir
@@ -23,25 +21,27 @@ if port is None:
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    if request.method == 'POST':
+    if flask.request.method == 'POST':
         print("POST")
     x = [1, 2, 3, 4, 5, 6]
     y = [1, 5, 20, 13, 6, 7]
-    return render_template('home.html', x=x, y=y)
+    return flask.render_template('home.html', x=x, y=y)
 
 
 @app.route('/import_data', methods=['GET', 'POST'])
 def import_data():
-    if request.method == 'POST':
-        dM.import_new_file(request.files)
-    return render_template('import.html')
+    if flask.request.method == 'POST':
+        # appMain.import_new_file(request.files)
+        print("post")
+    return flask.render_template('import.html')
 
 
 @app.route('/plot', methods=['GET', 'POST'])
 def plot():
-    dM.test_plot()
-    data = dM.tmpData
-    return render_template('plot.html', data=data)
+    # appMain.test_plot()
+    # data = appMain.tmpData
+    data = {"0": [1, 2, 3], "1": [50, 4, 21]}
+    return flask.render_template('plot.html', data=data)
 
 
 if __name__ == '__main__':

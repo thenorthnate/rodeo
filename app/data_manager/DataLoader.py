@@ -1,5 +1,6 @@
 # Data Loader Class
 
+import pandas
 import datetime
 import os
 import time
@@ -110,6 +111,18 @@ class DataLoader:
                         except KeyError:
                             data[self.tmpHeader[j]] = [datapoint]
                 i += 1
+        return data
+
+    def load_file_with_pandas(self):
+        data = pandas.read_csv(self.datadir + self.filename, skipinitialspace=True)
+        for item in data:
+            try:
+                data[item] = pandas.to_numeric(data[item])
+            except ValueError:
+                try:
+                    data[item] = pandas.to_datetime(data[item])
+                except ValueError:
+                    pass
         return data
 
     def make_datattributes(self):
