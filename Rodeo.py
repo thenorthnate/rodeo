@@ -7,13 +7,13 @@ import flask
 import os
 from app.main.Main import Main
 
-appMain = Main()
+m = Main()
 
 app = flask.Flask(__name__)
 app.config.from_object(__name__)
 app.config['SECRET_KEY'] = 'Rodeo'
-app.config['UPLOAD_FOLDER'] = appMain.datadir
-app.config['ALLOWED_EXTENSIONS'] = appMain.extensions
+app.config['UPLOAD_FOLDER'] = m.pwd + "/data/"
+app.config['ALLOWED_EXTENSIONS'] = m.extensions
 port = os.getenv("PORT")
 if port is None:
     port = 5000
@@ -22,24 +22,18 @@ if port is None:
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if flask.request.method == 'POST':
-        print("POST")
-    x = [1, 2, 3, 4, 5, 6]
-    y = [1, 5, 20, 13, 6, 7]
-    return flask.render_template('home.html', x=x, y=y)
-
-
-@app.route('/import_data', methods=['GET', 'POST'])
-def import_data():
-    if flask.request.method == 'POST':
-        # appMain.import_new_file(request.files)
-        print("post")
-    return flask.render_template('import.html')
+        if "fileUploadButton" in flask.request.form:
+            m.dm.upload_file(flask.request)
+    return flask.render_template('home.html')
 
 
 @app.route('/plot', methods=['GET', 'POST'])
 def plot():
-    # appMain.test_plot()
-    # data = appMain.tmpData
+    if flask.request.method == 'POST':
+        if "fileUploadButton" in flask.request.form:
+            m.dm.upload_file(flask.request)
+    # m.test_plot()
+    # data = m.tmpData
     data = {"0": [1, 2, 3], "1": [50, 4, 21]}
     return flask.render_template('plot.html', data=data)
 

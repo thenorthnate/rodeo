@@ -9,25 +9,28 @@
 import os
 import pandas
 import datetime
+import json
 
 
 class FileManager:
-    def __init__(self, datadir):
-        self.datadir = datadir
+    def __init__(self, pwd):
+        self.pwd = pwd
+        self.datadir = pwd + "/data/"
         self.dataFiles = []
         self.otherFiles = []
         self.fileProperties = {}
-        self.nextFileNum = -1
+        self.nextFileNum = 0
 
-    def load_file_properties(self):
-        pass
+        self.read_file_properties()
 
-    def find_files(self):
-        '''Finds all files in the datadir and loads the names'''
-        allFiles = os.listdir(self.datadir)
-        self.dataFiles = []
-        maxFileNum = 0
-        for item in allFiles:
+    def read_file_properties(self):
+        try:
+            with open(self.pwd + "/app/settings/fileproperties.json", "r") as inputFile:
+                self.fileProperties = json.load(inputFile)
+        except FileNotFoundError:
+            pass
+        maxFileNum = -1
+        for item in self.fileProperties:
             if item.endswith(".csv"):
                 try:
                     tmpFileNum = int(item.strip(".csv"))
@@ -40,9 +43,19 @@ class FileManager:
                 self.otherFiles.append(item)
         self.nextFileNum = maxFileNum + 1
 
+    def clean_data_directory(self):
+        # should move all file numbers down to the lowest they can be, update the file properties
+        # and delete any files that aren't in the file properties
+
+        # Also deletes from file properties if file not found but is in the properties file
+        pass
+
+    def write_file_properties(self):
+        with open(self.pwd + "/app/settings/fileproperties.json", "w") as outputFile:
+            json.dump(self.fileProperties, outputFile)
+
     def upload_file(self, request):
         '''Uploads a file from the users computer to the working directory of the app'''
-        # TODO: Create JSON file with file properties in it!
         rFiles = request.files
         if 'datafile' not in rFiles:
             print('No file part.')
@@ -56,11 +69,12 @@ class FileManager:
                 uploadDateTime = datetime.datetime.now()
                 uploadDateTimeString = uploadDateTime.strftime("%Y/%m/%d %H:%M:%S")
                 self.fileProperties[filename] = {"name": f1.filename, "uploadTime": uploadDateTimeString}
-                f1.save(os.path.join(self.datadir, filename))
+                f1.save(os.path.join(self.pwd + "/data/", filename))
+                self.write_file_properties()
 
     def read_file(self, filename):
         '''Reads a file into memory'''
-        data = pandas.read_csv(self.datadir + filename, skipinitialspace=True)
+        data = pandas.read_csv(self.pwd + "/data/" + filename, skipinitialspace=True)
         for item in data:
             try:
                 data[item] = pandas.to_numeric(data[item])

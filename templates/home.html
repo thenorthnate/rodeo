@@ -69,6 +69,64 @@
     </div>
   </div>
 
+  <br>
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Import Data Files</h5>
+      Select the files you wish to import. This action will load the selected files into memory for
+      data processing.
+      <br>
+      <form action="{{ url_for("home") }}" method="post" enctype="multipart/form-data">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Select</th>
+              <th scope="col">File Name</th>
+              <th scope="col">File Size</th>
+              <th scope="col">Date Uploaded</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="importFileSelection" value="">
+                </div>
+              </td>
+              <td>Example.csv</td>
+              <td>3.9kB</td>
+              <td>3/3/17</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="importFileSelection" value="">
+                </div>
+              </td>
+              <td>Example.csv</td>
+              <td>3.9kB</td>
+              <td>3/3/17</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="importFileSelection" value="">
+                </div>
+              </td>
+              <td>Example.csv</td>
+              <td>3.9kB</td>
+              <td>3/3/17</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <button class="btn btn-primary" type="submit" name="importSelectionButton" value="importSelectionButton">Import Data</button>
+      </form>
+
+    </div>
+  </div>
+
 </div>
 
 

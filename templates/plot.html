@@ -1,55 +1,66 @@
 {% extends "index.html" %}
 {% block body %}
 
-<div id="plotlyPlot"></div>
+<br>
+<div class="row">
+  <div class="col-sm-3">
+    <div class="container">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Plotting Tools</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Data Vis</h6>
+        <p class="card-text">Use these tools to determine what gets displayed on the plot above.</p>
+        <br>
 
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Chart Type
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Scatter</a>
+            <a class="dropdown-item" href="#">Bar</a>
+            <a class="dropdown-item" href="#">Pie</a>
+          </div>
+        </div>
 
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">Plotting Tools</h5>
-    <h6 class="card-subtitle mb-2 text-muted">Data Vis</h6>
-    <p class="card-text">Use these tools to determine what gets displayed on the plot above.</p>
-    <br>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            X Axis:
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Date</a>
+            <a class="dropdown-item" href="#">ID</a>
+            <a class="dropdown-item" href="#">Shop</a>
+          </div>
+        </div>
 
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Chart Type
-      </button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Scatter</a>
-        <a class="dropdown-item" href="#">Bar</a>
-        <a class="dropdown-item" href="#">Pie</a>
+        <div class="btn-group">
+          <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Y Axis:
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Date</a>
+            <a class="dropdown-item" href="#">ID</a>
+            <a class="dropdown-item" href="#">Shop</a>
+          </div>
+        </div>
+        <button type="button" class="btn btn-success" data-dismiss="modal">Update Plot</button>
+
+        <div class="slidecontainer">
+          <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+        </div>
       </div>
-    </div>
-
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        X Axis:
-      </button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Date</a>
-        <a class="dropdown-item" href="#">ID</a>
-        <a class="dropdown-item" href="#">Shop</a>
-      </div>
-    </div>
-
-    <div class="btn-group">
-      <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Y Axis:
-      </button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Date</a>
-        <a class="dropdown-item" href="#">ID</a>
-        <a class="dropdown-item" href="#">Shop</a>
-      </div>
-    </div>
-    <button type="button" class="btn btn-success" data-dismiss="modal">Update Plot</button>
-
-    <div class="slidecontainer">
-      <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
     </div>
   </div>
+  </div>
+  <div class="col-sm-9">
+    <div id="plotlyPlot"></div>
+  </div>
 </div>
+
+
+
+
 
 <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script -->
 <script src="{{ url_for('static', filename='javascript/plotly-latest.min.js') }}"></script>
